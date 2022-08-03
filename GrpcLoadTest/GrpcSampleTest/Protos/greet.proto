@@ -1,0 +1,578 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+option csharp_namespace = "MemoryLeakSimulation";
+
+package greet;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+
+// The request message HoteSearchCriteria.
+message HelloRequest {
+        /// <summary>
+        /// Customer country currency code
+        /// </summary>
+        string BaseCurrencyCode = 1;
+        /// <summary>
+        /// OHH - From SubscriberModel , PH - Y
+        /// When N - Blacklisted hotels should be filtered out from hotel list
+        /// Null === "Y"
+        /// </summary>
+        bool BlacklistedHotelsRequired = 2;
+        /// <summary>
+        /// From Subscriber model
+        /// </summary>
+        string BookingCategory = 3;
+
+        /// <summary>
+        /// Chain code of the gds 
+        /// </summary>
+        string ChainCodeType = 4;
+        /// <summary>
+        /// From request
+        /// </summary>
+        google.protobuf.Timestamp CheckInDate = 5;
+        
+        /// <summary>
+        /// From request
+        /// </summary>
+        string CustomerCode = 6;
+        /// <summary>
+        /// From customer  model
+        /// </summary>
+        string CustomerGroupCode = 7;
+        /// <summary>
+        /// From customer  model
+        /// </summary>
+        string CustomerParentCode = 8;
+        /// <summary>
+        /// From customer  model
+        /// </summary>
+        string CustomerParentGroupCode = 9;
+        /// <summary>
+        /// From Customer model
+        /// </summary>
+        string DefaultCHP = 10;
+        /// <summary>
+        /// User model
+        /// </summary>
+        string DefaultSort = 12;
+        /// <summary>
+        /// From request (Empty for PH)
+        /// Free text search without geocodes
+        /// </summary>
+        string FreeTextSearch = 13;
+        /// <summary>
+        /// From request (For PH)
+        /// Single hotel search with geocodes
+        /// </summary>
+        string HotelCode = 14;
+        /// <summary>
+        /// From request (Empty for PH)
+        /// Hotel name search with geocodes
+        /// </summary>
+        string HotelName = 15;
+        /// <summary>
+        /// From request (Empty for PH)
+        /// Iata for iata search without geocodes
+        /// </summary>
+        string IATA = 16;
+        /// <summary>
+        /// OHH - Y, PH - N
+        /// </summary>
+        bool IsOHHUser = 17;
+        /// <summary>
+        /// Website language code
+        /// </summary>
+        string LanguageCode = 18;
+        /// <summary>
+        /// From request
+        /// </summary>
+        double Latitude = 19;
+        /// <summary>
+        /// From request
+        /// </summary>
+        double Longitude = 20;
+        /// <summary>
+        /// From channel config header
+        /// </summary>
+        string OnlyParticipatingHotels = 21;
+
+        /// On Request link flag
+        string OnRequestLink = 22;
+
+        /// <summary>
+        /// When Y - IntelReview count is inherited against C1 customer
+        /// </summary>
+        string OptedOut = 23;
+        /// <summary>
+        /// No of hotel in each page
+        /// OHH - From request, PH - user model
+        /// </summary>
+        int32 PageSize = 24;
+        /// <summary>
+        /// From customer channel config 
+        /// Comma seperated participating channel types
+        /// </summary>
+        string ParticipatingChannels = 25;
+        /// <summary>
+        /// From request
+        /// </summary>
+        string PoiCountryCode = 26;
+        /// <summary>
+        /// From customer model
+        /// When Y - only referred hotels are returned
+        /// </summary>
+        string PrefHotelsFlag = 27;
+        /// <summary>
+        /// From customer  model
+        /// </summary>
+        string Primarygds = 28;
+        /// <summary>
+        /// Customer Model
+        /// </summary>
+        string RegionCode = 29;
+        /// <summary>
+        /// Generated in hotellist microservice
+        /// </summary>
+        string SearchId = 30;
+        /// <summary>
+        /// From request
+        /// </summary>
+        string SessionId = 31;
+        /// <summary>
+        /// From Region Model
+        /// When Y - Popular and alternate hotels will be identified
+        /// </summary>
+        string SmartSearchFlag = 32;
+        /// <summary>
+        /// Start index of each page
+        /// ex : First page 0
+        /// </summary>
+        int32 StartIndex = 33;
+
+        /// <summary>
+        /// From customer  model 
+        /// From where CHP config should be considered
+        /// Client - Customer
+        /// ANY - Customer OR CCG OR TopGuid
+        /// ALL  - Customer + CCG + TopGuid
+        /// </summary>
+        string UseCHPSetup =34;
+        /// <summary>
+        /// From User Model
+        /// </summary>
+        double UserDistance = 35;
+        /// <summary>
+        /// From User Model
+        /// 1 - Miles
+        /// 2 - KMs
+        /// </summary>
+        int32 UserDistanceType = 36;
+        /// <summary>
+        /// From customer  model    
+        /// Which level preference should be considered when a hotel is participating in multiple levels
+        /// Client - Customer
+        /// ANY - Customer OR CCG OR TopGuid
+        /// ALL  - Customer + CCG + TopGuid
+        /// </summary>
+        string UserPreferenceSetup = 37;
+
+        string DebugFlag = 38;
+
+        /// <summary>
+        /// For Hotel Facilities
+        ///  </summary>
+        string Facilities = 39;
+
+        /// <summary>
+        /// For SpecificProperties
+        ///  </summary>
+        repeated string PropertyType = 40;
+
+
+        /// <summary>
+        /// From Subscriber model
+        /// </summary>
+        string SubBookingCategory = 41;
+
+        string TMCCode = 42;
+        /// <summary>
+        /// From Subscriber model
+        /// </summary>
+        string OnRequestHotelEnabled = 43;
+
+        /// <summary>
+        /// From Subscriber model
+        /// </summary>
+        string GroupBookingCategory = 44;
+
+        string RegionPropertyTypeRequired = 45;
+        string IntelReviewFlag = 46;
+        string RequestId = 47;
+        repeated string StarRating = 48;
+        repeated Pair GDSChainCodes = 49;
+        string PrioritySort = 50;
+        string Preference = 51;
+
+        string IsOTAFacility = 52;
+        string MetaphoneFreeText = 53;
+    }
+
+message Pair {
+   string key = 1;
+   repeated string value = 2;
+}
+
+// The response message containing the HotelSearchResults.
+message hsResult
+{
+    int32 TotalHotel=1;
+}
+message HelloReply 
+{
+        string ErrorDesc = 1;
+
+        map<string, HotelResultItem> HotelList = 2;
+
+        int32 TotalHotels = 3;
+
+        int32 TotalPopularHotels = 4;
+
+        int32 TotalAlternativeHotels = 5;
+
+        //Save Blocked Hotels in separate block in API response, for logging purpose
+        repeated BlockedHotelList blockedHotelList = 6;
+}
+
+//Save Blocked Hotels in separate block in API response, for logging purpose
+message BlockedHotelList
+{
+        string HotelCode = 1;
+        string HotelName = 2;
+        string BlockingType = 3;
+}
+
+message HotelResultItem
+{
+        /// Hotel address line 1
+        /// </summary>
+        string Address1 = 1;
+
+        /// <summary>
+        /// Hotel address line 2
+        /// </summary>
+        string Address2 = 2;
+
+        /// <summary>
+        /// Hotel address line 3
+        /// </summary>
+        string Address3 = 3;
+
+        /// <summary>
+        /// Agency Priority (Identified from CHP logic)
+        /// </summary>
+        int32 APPriority = 4;
+
+        /// <summary>
+        /// Agency Priority GIF image (Identified from CHP logic)
+        /// </summary>
+        string APPriorityGIF = 5;
+
+        /// <summary>
+        /// BillbackIndicator
+        /// From Hotel Credits model
+        /// </summary>
+        string BillBackIndicator = 6;
+
+        /// <summary>
+        /// If blacklisted 'Y' else 'N' (Identified from CHP logic)
+        /// </summary>
+        string BlacklistedFlag = 7;
+
+        /// <summary>
+        /// BO participating indicator to display cashonly icon        
+        /// </summary>
+        string BOPropertyFlag = 8;
+        
+        float CacheMaxRate = 9;
+
+        /// <summary>
+        /// Cache minimum Rate of the hotel
+        /// </summary>
+        float CacheMinRate = 10;
+        /// <summary>
+        /// Cache minimum Rate currency
+        /// </summary>
+        string CacheMinRateCurrency = 11;
+
+        /// <summary>
+        /// Cached rate date time
+        /// </summary>
+        google.protobuf.Timestamp CacheMinRateDttm = 12;
+        /// <summary>
+        /// Hotel HH Chain Code
+        /// </summary>
+        string ChainCode = 13;
+
+        /// <summary>
+        /// Hotel city code
+        /// </summary>
+        string CityCode = 14;
+        /// <summary>
+        /// City description
+        /// </summary>
+        string CityDesc = 15;
+
+        /// <summary>
+        /// Country code 
+        /// </summary>
+        string CountryCode = 16;
+
+        /// <summary>
+        /// Country Description
+        /// </summary>
+        string CountryDesc = 17;
+
+        /// <summary>
+        /// Customer Prefered Priority (Identified from CHP logic)
+        /// </summary>
+        int32 CPPriority = 18;
+
+        /// <summary>
+        /// Customer Prefered Priority GIF Image (Identified from CHP logic)
+        /// </summary>
+        string CPPriorityGIF = 19;
+
+        /// <summary>
+        /// Hotel distance from POI in user distance type     
+        /// </summary>
+        repeated DistanceDetails Distance = 20;
+
+        /// <summary>
+        /// Hotel Email id
+        /// </summary>
+        string EmailId = 21;
+
+        /// <summary>
+        /// Hotel Fax
+        /// </summary>
+        string Fax = 22;
+
+        string Facility = 23;
+        string FaxFormat = 24;
+
+        /// <summary>
+        /// Global Region Code
+        /// </summary>
+        string GlobalRegionCode = 25;
+
+        string HostPropertyId = 26;
+
+        /// <summary>
+        /// Hotel property code
+        /// </summary>
+        string HotelCode = 27;
+
+        /// <summary>
+        /// P - Popular hotel
+        /// A - Alternative hotel
+        /// Empty - Other hotels
+        /// (Identified from smartsearch logic)
+        /// </summary>
+        string HotelGroupFlag = 28;
+
+        /// <summary>
+        /// Hotel Hub property code
+        /// </summary>
+        string HotelHubCode = 29;
+        /// <summary>
+        /// Hotel Name
+        /// </summary>
+        string HotelName = 30;
+
+        /// <summary>
+        /// (Identified from CHP logic)
+        /// </summary>
+        int32 HotelRating = 31;
+
+        /// <summary>
+        /// Hotel remarks
+        /// </summary>
+        string HotelRemarks = 32;
+
+        /// <summary>
+        /// (Identified from CHP logic)
+        /// </summary>
+        int32 HotelReviewCount = 33;
+
+        /// <summary>
+        /// Hotel primary iata
+        /// </summary>
+        string IATA = 34;
+        /// <summary>
+        ///Intel review count
+        /// </summary>
+        string IntelReviewCount = 35;
+        /// <summary>
+        ///Intel review Score
+        /// </summary>
+        string IntelReviewScore = 36;
+
+        /// <summary>
+        /// Hotel distance from POI in Kms      
+        /// </summary>
+        double KmsDistance = 37;
+
+        /// <summary>
+        /// Hotel latitude
+        /// </summary>
+        float Latitude = 38;
+
+        /// <summary>
+        /// Hotel longitude
+        /// </summary>
+        float Longitude = 39;
+
+        /// <summary>
+        /// Comma seperated participating channel
+        /// </summary>
+
+        string OnRequestLink = 40;
+        string ParticipatingChannels = 41;
+
+        /// <summary>
+        /// Postal/Zip code
+        /// </summary>
+        string PostCode = 42;
+        /// <summary>
+        /// Hotel type
+        /// </summary>
+        string propertyType = 43;
+
+        /// <summary>
+        /// Provice Code
+        /// </summary>
+        string ProvinceCode = 44;
+
+        /// <summary>
+        /// Provice Description
+        /// </summary>
+        string ProvinceDesc = 45;
+
+        /// <summary>
+        /// StarRating description
+        /// </summary>
+        string StarRating = 46;
+
+        /// <summary>
+        /// StarRating Code
+        /// </summary>
+        string StarRatingCode = 47;
+        /// <summary>
+        /// Telephone
+        /// </summary>
+        string Telephone = 48;
+
+        string TelephoneFormat = 49;
+
+
+        facilitiesInfo facilitiesInfo = 50;
+
+        string CountryChannelBlockingFlag = 51;
+
+        string HotelChainChannelBlockingFlag = 52;
+
+        repeated facilityInfo facilityInfo = 53;
+        float GuestRating = 54;
+        int32 GuestRatingCount = 55;
+
+        string Usage = 56;
+
+        string IsHHAllocation = 57;
+
+        string OnRequestHotel = 58;
+
+        string ThumbnailUrl = 59;
+
+        string HygieneInfo = 60;
+
+        string MetaphoneHotelName = 61;
+
+        repeated providerInfo providerInfo = 62;
+}
+
+message facilitiesInfo
+{
+        repeated string text = 1;
+        string facilitiesIconInformation = 2;
+        repeated facility facilities = 3;
+}
+
+message facility
+{
+        string code = 1;
+        string description = 2;
+        string icon = 3;
+        string isBusinessFacility = 4;
+        string order = 5;
+}
+
+
+message facilityInfo
+{
+        string code = 1;
+        string description = 2;
+        string isBusinessFacility = 3;
+        string order = 4;
+}
+
+
+message providerInfo
+{
+        string id = 1;
+        string provider = 2;
+        string chainCode = 3;
+}
+
+message DistanceDetails
+{
+        /// <summary>
+        /// Distance from From Point to TO Point
+        /// </summary>
+        double Distance = 1;
+
+        /// <summary>
+        /// From Point
+        /// </summary>
+        string From = 2;
+
+        /// <summary>
+        /// IATA Code
+        /// </summary>
+        string IATA = 3;
+
+        /// <summary>
+        /// To Point
+        /// </summary>
+        string To = 4;
+        ///// <summary>
+        ///// DistanceType
+        ///// 1. POIToHotel
+        ///// 2. HotelToCity
+        ///// 3. HotelToCity Primary IATA
+        ///// 4. HotelToCity SecondaryIATA
+        ///// </summary>
+        DistanceType Type = 5;
+}
+
+enum DistanceType {
+  POIToHotel = 0;
+  HotelToCity = 1;
+  HotelToCityIATA = 2;
+  HotelToCitySecondaryIATA = 3;
+}
